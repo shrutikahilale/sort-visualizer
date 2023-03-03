@@ -1,0 +1,30 @@
+.block {
+    background-color: #38E7FF;
+    padding: 2rem;
+    width: 4rem;
+    color: #282c34;
+}
+
+#vis-btn {
+    background-color: #ADFF00;
+}
+
+#reset-btn {
+    background-color: #DCDCDC;
+}
+
+.btn {
+    padding: 1rem 2rem;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #282c34;
+}
+
+.button {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: space-between;
+}
