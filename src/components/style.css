@@ -28,3 +28,28 @@
     display: flex;
     justify-content: space-between;
 }
+
+.homepage {
+    min-height: inherit;
+    display: flex;
+    place-content: center;
+    align-items: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    color: #fff;
+}
+
+img {
+    height: 400px;
+}
+
+.card {
+    background-color: #16181d;
+    box-shadow: 3px 3px 10px #16181d;
+    transition: all 0.25s ease-in-out;
+    cursor: pointer;
+}
+
+.card:hover {
+    scale: 1.03
+}
