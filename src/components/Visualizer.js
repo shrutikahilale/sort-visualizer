@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import '../App.css'
 import ArrayBlock from './ArrayBlock'
+import { Link } from 'react-router-dom'
 
 function Visualizer(props) {
     const size = props.array.length
@@ -59,22 +60,25 @@ function Visualizer(props) {
     }
 
     return (
-        <div className='d-f f-c g-2 j-c visualize-section'>
-            <header>{props.heading}</header>
-            <div>size = {size}</div>
-            <div>array =&#123;{arr}&#125;</div>
+        <Link to={'/Visualizer'} >
 
-            <div className='d-f j-c arrayBlocks-section'>{arrayBlocks}</div>
+            <div className='d-f f-c g-2 j-c visualize-section'>
+                <header>{props.heading}</header>
+                <div>size = {size}</div>
+                <div>array =&#123;{arr}&#125;</div>
 
-            <div className="buttons d-f">
-                {/* <button className={`btn ${btnText === 'Visualize' ? 'bg-green' : 'bg-red'}`}
+                <div className='d-f j-c arrayBlocks-section'>{arrayBlocks}</div>
+
+                <div className="buttons d-f">
+                    {/* <button className={`btn ${btnText === 'Visualize' ? 'bg-green' : 'bg-red'}`}
                     onClick={`${btnText}` === 'Visualize' ? { visualize } : { stop }}>
                     {btnText}
                 </button> */}
-                <button className='btn' onClick={visualize}>Visualize</button>
-                <button className='btn' id='reset-btn'>Reset</button>
-            </div>
-        </div >
+                    <button className='btn' onClick={visualize}>Visualize</button>
+                    <button className='btn' id='reset-btn'>Reset</button>
+                </div>
+            </div >
+        </Link>
     )
 }
 
