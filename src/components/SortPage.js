@@ -1,6 +1,7 @@
 import React from 'react'
 import Visualizer from './Visualizer';
 import { useLocation, useNavigate } from "react-router-dom";
+import './style.css'
 
 function SortPage() {
     const navigate = useNavigate();
@@ -8,7 +9,6 @@ function SortPage() {
 
     const array = location.state.array;
     const size = array.length
-    console.log(array)
 
     const arr = array.map((e, i) => {
         return (i === size - 1 ?
@@ -17,14 +17,14 @@ function SortPage() {
     })
 
     const redirectBack = () => {
-        navigate("/");
+        navigate(-1);
     };
 
     return (
 
-        <div className='d-f f-c g-2 j-c visualize-section'>
-            <button onClick={redirectBack}>Back to Home</button>
-            <header>{location.state.title}</header>
+        <div className='d-f f-c g-2 j-c sort-page-section'>
+            <p onClick={redirectBack} className='backBtn'> ⬅️ Back to Home</p>
+            <header className='sort-name'>{location.state.title}</header>
             <div>
                 <div>size = {size}</div>
                 <div >array = &#123;{arr}&#125;</div>
