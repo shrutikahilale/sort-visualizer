@@ -8,8 +8,8 @@ function App() {
 
   return (
     <div className="App bg-blue-black">
-      {/* <Visualizer heading={heading} array={array} /> */}
-      <HomePage />
+      <Visualizer heading={heading} array={array} />
+      {/* <HomePage /> */}
     </div>
   );
 }
