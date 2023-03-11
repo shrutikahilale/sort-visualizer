@@ -69,8 +69,19 @@ function Visualizer({ array }) {
         //         </div>
         //     </div >
         // </Link>
-
-        <h3>HELLO</h3>
+        <div>
+            <div className='d-f j-c arrayBlocks-section font-roboto-mono'>
+                {
+                    array.map((e, i) => {
+                        return (<ArrayBlock element={e} key={i} />)
+                    })
+                }
+            </div>
+            <div className='operating-section'>
+                <button id='vis' className='btn'>Start Visualizing</button>
+                <button id='res' className='btn'>Reset</button>
+            </div>
+        </div>
     )
 }
 

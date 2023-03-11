@@ -1,17 +1,30 @@
 .block {
     background-color: #38E7FF;
-    padding: 2rem;
-    width: 4rem;
+    padding: 3%;
+    width: 2%;
+    height: 1rem;
     color: #282c34;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 2px solid #0b1d1f;
 }
 
-#vis-btn {
+#vis {
+    background-color: #769e5a;
+}
+
+#vis:hover,
+#vis:active {
     background-color: #6aff00;
 }
 
-#reset-btn {
+#res {
+    background-color: #b19f5f;
+}
+
+#res:hover,
+#res:active {
     background-color: #ffc800;
 }
 
@@ -23,8 +36,6 @@
     color: #282c34;
 
     box-shadow: 6px 6px 2px #141414;
-
-    width: 100px;
 }
 
 .homepage {
@@ -68,8 +79,9 @@ img {
     gap: 2rem;
 }
 
-.visualize-section {
+.sort-page-section {
     height: 100vh;
+    width: auto;
 }
 
 .arrayBlocks-section {
@@ -80,9 +92,12 @@ header {
     font-size: 2rem;
 }
 
-.buttons {
+.operating-section {
+    display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+    gap: 3rem;
+
 }
 
 .bg-red {
@@ -91,4 +106,21 @@ header {
 
 .bg-green {
     background-color: #6aff00;
+}
+
+.backBtn {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+
+    cursor: pointer;
+}
+
+.backBtn:hover,
+.backBtn:active {
+    text-shadow: 3px 3px 5px #000;
+}
+
+.sort-name {
+    margin-bottom: 3rem;
 }
