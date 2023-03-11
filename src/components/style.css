@@ -1,13 +1,22 @@
 .block {
-    background-color: #38E7FF;
+    /* background-color: #38E7FF; */
     padding: 3%;
     width: 2%;
     height: 1rem;
     color: #282c34;
+    /* color: #d3e2ff; */
     display: flex;
     justify-content: center;
     align-items: center;
     border: 2px solid #0b1d1f;
+}
+
+.styleBlueBg {
+    background-color: #38E7FF;
+}
+
+.styleOrangeBg {
+    background-color: #ff5c1b;
 }
 
 #vis {

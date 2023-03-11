@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import '../App.css'
 import ArrayBlock from './ArrayBlock'
-import { Link, useLocation } from 'react-router-dom'
 
 function Visualizer({ array }) {
     // const location = useLocation()
@@ -47,41 +46,75 @@ function Visualizer({ array }) {
     //         tempArray[y] = t;
     //     }
     // }
+    const [bgColors, setBgColors] = useState(new Array(array.length).fill('styleBlueBg'))
+    const [data, setData] = useState(array)
+
+    const arrayBlocks = data.map((e, i) => {
+        return (<ArrayBlock element={e} key={i}
+            classN={bgColors[i]}
+        />)
+    })
+
+
+    const [isDisabled, setDisability] = useState(false)
+
+    function clickHandler() {
+        setDisability(true)
+        let oTimer = 1000 * array.length;
+
+        for (let i = 0; i < array.length - 1; i++) {
+            setTimeout(() => {
+                for (let j = 0; j < array.length - i - 1; j++) {
+                    setTimeout(() => {
+                        let newBgColors = [...bgColors]
+                        newBgColors[j] = 'styleOrangeBg'
+                        newBgColors[j + 1] = 'styleOrangeBg'
+
+                        setBgColors(newBgColors)
+
+                        setData(data => {
+                            // Copy the current array
+                            const newData = [...data];
+                            // Do the swap
+                            swap(newData, j, j + 1)
+                            // Set the state by returning the update
+                            return newData
+                        });
+
+                        console.log(data)
+                    }, 1000 * (j + 1));
+                }
+            }, oTimer * (i + 1));
+        }
+
+        // TODO: after execution of function setDisability to true
+        // TODO: AFTER CLICKING BACK BUTTON STILL THE FUNCTION EXECUTES (stop it!)
+    }
+
+    function swap(newData, x, y) {
+        if (newData[x] > newData[y]) {
+            let t = newData[x]
+            newData[x] = newData[y]
+            newData[y] = t;
+        }
+    }
+
+    function reset() {
+        // temporary solution to stop execution of function
+        window.location.reload(true);
+    }
 
     return (
-        // <Link to={'/Visualizer'} >
-        //     <div className='d-f f-c g-2 j-c visualize-section'>
-        //         <header>{location.state.title}</header>
-        //         <div>
-        //             <div>size = {size}</div>
-        //             <div >array = &#123;{arr}&#125;</div>
-        //         </div>
-
-        //         <div className='d-f j-c arrayBlocks-section font-roboto-mono'>{arrayBlocks}</div>
-
-        //         <div className="buttons d-f">
-        //             {/* <button className={`btn ${btnText === 'Visualize' ? 'bg-green' : 'bg-red'}`}
-        //             onClick={`${btnText}` === 'Visualize' ? { visualize } : { stop }}>
-        //             {btnText}
-        //         </button> */}
-        //             <button className='btn' onClick={visualize}>Visualize</button>
-        //             <button className='btn' id='reset-btn'>Reset</button>
-        //         </div>
-        //     </div >
-        // </Link>
         <div>
-            <div className='d-f j-c arrayBlocks-section font-roboto-mono'>
-                {
-                    array.map((e, i) => {
-                        return (<ArrayBlock element={e} key={i} />)
-                    })
-                }
+            <div className='d-f j-c arrayBlocks-section font-roboto-mono' >
+                {arrayBlocks}
             </div>
             <div className='operating-section'>
-                <button id='vis' className='btn'>Start Visualizing</button>
-                <button id='res' className='btn'>Reset</button>
+                <button id='vis' className='btn' onClick={clickHandler} disabled={isDisabled}>Start Visualizing</button>
+                <button id='res' className='btn' onClick={reset}>Reset</button>
             </div>
         </div>
+
     )
 }
 
