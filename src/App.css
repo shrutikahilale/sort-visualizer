@@ -1,9 +1,28 @@
+body {
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
 .App {
   text-align: center;
   min-height: 100vh;
   color: #fff;
 }
 
+button {
+  font-family: inherit;
+  font-weight: bold;
+}
+
 .bg-blue-black {
   background-color: #282c34;
+}
+
+.font-roboto-mono {
+  font-family: 'Roboto Mono', monospace;
 }
