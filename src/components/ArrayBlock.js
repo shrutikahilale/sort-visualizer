@@ -3,9 +3,7 @@ import './style.css'
 
 function ArrayBlock({ element }) {
   return (
-    <div className='block'>
-      {element}
-    </div>
+    <div className='block'>{element}</div>
   )
 }
 
