@@ -1,53 +1,18 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import '../App.css'
 import ArrayBlock from './ArrayBlock'
 
-function Visualizer({ array }) {
-    // const location = useLocation()
+function Visualizer({ array, sort }) {
+    let classNameArray = []
+    for (let i = 0; i < array.length; i++) {
+        classNameArray[i] = 'styleBlueBg'
+    }
 
-    // const array = location.state.array;
-    // const size = array.length
-    // console.log(array)
-
-    // const arr = array.map((e, i) => {
-    //     return (i === size - 1 ?
-    //         <span key={i}> {e} </span> :
-    //         <span key={i}> {e} ,</span>)
-    // })
-
-    // declaring array as state object
-    // const [stateArray, setArrayElements] = useState(array)
-
-    // const arrayBlocks = stateArray.map((e, i) => {
-    //     return (<ArrayBlock element={e} key={i} />)
-    // })
-
-    // function visualize() {
-    //     for (let i = 0; i < size; i++) {
-    //         for (let j = i; j < size - 1; j++) {
-    //             setTimeout(() => {
-    //                 setArrayElements(stateArray => {
-    //                     // Copy the current array
-    //                     const tempArray = [...stateArray];
-    //                     // Do the swap
-    //                     swap(tempArray, j, j + 1)
-    //                     // Set the state by returning the update
-    //                     return tempArray
-    //                 });
-    //             }, 2000 * (i + 1));
-    //         }
-    //     }
-    // }
-
-    // function swap(tempArray, x, y) {
-    //     if (tempArray[x] > tempArray[y]) {
-    //         let t = tempArray[x]
-    //         tempArray[x] = tempArray[y]
-    //         tempArray[y] = t;
-    //     }
-    // }
-    const [bgColors, setBgColors] = useState(new Array(array.length).fill('styleBlueBg'))
+    const [bgColors, setBgColors] = useState(classNameArray)
     const [data, setData] = useState(array)
+    const [isDisabled, setDisability] = useState(false)
+    // const [isTerminated, setTermination] = useState(false)
+    const isTerminated = useRef(false)
 
     const arrayBlocks = data.map((e, i) => {
         return (<ArrayBlock element={e} key={i}
@@ -55,53 +20,89 @@ function Visualizer({ array }) {
         />)
     })
 
+    var timer1, timer2
 
-    const [isDisabled, setDisability] = useState(false)
-
-    function clickHandler() {
+    function bubbleSortVisualizer() {
         setDisability(true)
-        let oTimer = 1000 * array.length;
+        let oTimer = 1000 * array.length
+        let endTimer = 28000
 
         for (let i = 0; i < array.length - 1; i++) {
-            setTimeout(() => {
+            timer1 = setTimeout(() => {
                 for (let j = 0; j < array.length - i - 1; j++) {
-                    setTimeout(() => {
-                        let newBgColors = [...bgColors]
-                        newBgColors[j] = 'styleOrangeBg'
-                        newBgColors[j + 1] = 'styleOrangeBg'
+                    timer2 = setTimeout(() => {
+                        setBgColors((bgColors) => {
+                            const newBgColors = [...bgColors]
 
-                        setBgColors(newBgColors)
+                            for (let k = 0; k < newBgColors.length - i; k++)
+                                newBgColors[k] = 'styleBlueBg'
+
+                            newBgColors[j] = i === array.length - 2 ? 'styleGreenBg' : 'styleOrangeBg'
+                            newBgColors[j + 1] = j === array.length - i - 2 ? 'styleGreenBg' : 'styleOrangeBg'
+
+                            return newBgColors
+                        })
 
                         setData(data => {
                             // Copy the current array
-                            const newData = [...data];
+                            const newData = [...data]
                             // Do the swap
                             swap(newData, j, j + 1)
                             // Set the state by returning the update
                             return newData
-                        });
-
-                        console.log(data)
-                    }, 1000 * (j + 1));
+                        })
+                        // console.log('timer2: ', timer2)
+                    }, 1000 * (j))
                 }
-            }, oTimer * (i + 1));
-        }
 
-        // TODO: after execution of function setDisability to true
-        // TODO: AFTER CLICKING BACK BUTTON STILL THE FUNCTION EXECUTES (stop it!)
+                console.log('timer1: ', timer1)
+            }, oTimer * (i))
+        }
+        setTimeout(() => {
+            setDisability(false)
+            resetPage()
+        }, endTimer)
+
+        // if(isTerminated.current) {
+        //     console.log('yes')
+        //     // clearTimeout(timer2)
+        //     // clearTimeout(timer1)
+        // }
     }
+
 
     function swap(newData, x, y) {
         if (newData[x] > newData[y]) {
             let t = newData[x]
             newData[x] = newData[y]
-            newData[y] = t;
+            newData[y] = t
         }
     }
 
     function reset() {
-        // temporary solution to stop execution of function
-        window.location.reload(true);
+        // // stop the function that is executing
+        // setTermination(true)
+        // isTerminated.current = true
+        resetPage()
+    }
+
+    function resetPage() {
+        setBgColors(bgColors => {
+            const newBgColors = [...bgColors]
+            for (let k = 0; k < newBgColors.length; k++) newBgColors[k] = 'styleBlueBg'
+            return newBgColors
+        })
+
+        setData(data => {
+            return array
+        })
+    }
+
+    function selectionSortVisualizer() {
+        console.log('selectionSortVisualizer')
+    }
+    function insertionSortVisualizer() {
+        console.log('insertionSortVisualizer')
     }
 
     return (
@@ -110,7 +111,26 @@ function Visualizer({ array }) {
                 {arrayBlocks}
             </div>
             <div className='operating-section'>
-                <button id='vis' className='btn' onClick={clickHandler} disabled={isDisabled}>Start Visualizing</button>
+                <button id='vis' className='btn'
+                    onClick={
+                        () => {
+                            switch (sort) {
+                                case 'bubbleSort':
+                                    bubbleSortVisualizer()
+                                    break;
+                                case 'selectionSort':
+                                    selectionSortVisualizer()
+                                    break;
+                                case 'insertionSort':
+                                    insertionSortVisualizer()
+                                    break;
+                                default:
+                                    console.log('err')
+                                    break;
+                            }
+                        }
+                    }
+                    disabled={isDisabled}>Start Visualizing</button>
                 <button id='res' className='btn' onClick={reset}>Reset</button>
             </div>
         </div>

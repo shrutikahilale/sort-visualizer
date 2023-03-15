@@ -6,7 +6,9 @@ function Card(props) {
     const navigate = useNavigate()
     const handleOnClick = () => navigate('SortPage', {
         state: {
-            title: props.title, array: props.array
+            title: props.title,
+            array: props.array,
+            sort: props.sort
         }
     })
 

@@ -4,11 +4,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import './style.css'
 
 function SortPage() {
-    const navigate = useNavigate();
-    const location = useLocation();
+    const navigate = useNavigate()
+    const location = useLocation()
 
-    const array = location.state.array;
+    const array = location.state.array
     const size = array.length
+    const sort = location.state.sort
 
     const arr = array.map((e, i) => {
         return (i === size - 1 ?
@@ -17,8 +18,8 @@ function SortPage() {
     })
 
     const redirectBack = () => {
-        navigate(-1);
-    };
+        navigate(-1)
+    }
 
     return (
 
@@ -30,7 +31,7 @@ function SortPage() {
                 <div >array = &#123;{arr}&#125;</div>
             </div>
 
-            <Visualizer array={array} />
+            <Visualizer array={array} sort={sort} />
         </div >
 
     )
