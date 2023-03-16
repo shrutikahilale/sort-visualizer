@@ -28,7 +28,7 @@ function SortPage() {
             <header className='sort-name'>{location.state.title}</header>
             <div>
                 <div>size = {size}</div>
-                <div >array = &#123;{arr}&#125;</div>
+                <div>array = &#123;{arr}&#125;</div>
             </div>
 
             <Visualizer array={array} sort={sort} />

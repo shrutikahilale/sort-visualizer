@@ -19,6 +19,10 @@
     background-color: #ff5c1b;
 }
 
+.stylePurpleBg {
+    background-color: rgb(119, 0, 255);
+}
+
 .styleGreenBg {
     background-color: #6aff00;
 }

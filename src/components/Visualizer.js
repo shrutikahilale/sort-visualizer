@@ -1,88 +1,129 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import '../App.css'
 import ArrayBlock from './ArrayBlock'
 
 function Visualizer({ array, sort }) {
+    const n = array.length
     let classNameArray = []
-    for (let i = 0; i < array.length; i++) {
+    for (let i = 0; i < n; i++) {
         classNameArray[i] = 'styleBlueBg'
     }
 
     const [bgColors, setBgColors] = useState(classNameArray)
-    const [data, setData] = useState(array)
+    const [arrayData, setArrayData] = useState([26, 14, 45, 67, 28, 18])
     const [isDisabled, setDisability] = useState(false)
-    // const [isTerminated, setTermination] = useState(false)
-    const isTerminated = useRef(false)
 
-    const arrayBlocks = data.map((e, i) => {
-        return (<ArrayBlock element={e} key={i}
-            classN={bgColors[i]}
-        />)
+    const arrayBlocks = arrayData.map((e, i) => {
+        return (<ArrayBlock element={e} key={i} classN={bgColors[i]} />)
     })
 
-    var timer1, timer2
+    let endTimer
 
     function bubbleSortVisualizer() {
         setDisability(true)
-        let oTimer = 1000 * array.length
-        let endTimer = 28000
+        let oTimer = 1000 * n
+        endTimer = 28000
 
-        for (let i = 0; i < array.length - 1; i++) {
-            timer1 = setTimeout(() => {
-                for (let j = 0; j < array.length - i - 1; j++) {
-                    timer2 = setTimeout(() => {
+        for (let i = 0; i < n - 1; i++) {
+            setTimeout(() => {
+                for (let j = 0; j < n - i - 1; j++) {
+                    setTimeout(() => {
                         setBgColors((bgColors) => {
                             const newBgColors = [...bgColors]
-
                             for (let k = 0; k < newBgColors.length - i; k++)
                                 newBgColors[k] = 'styleBlueBg'
-
-                            newBgColors[j] = i === array.length - 2 ? 'styleGreenBg' : 'styleOrangeBg'
-                            newBgColors[j + 1] = j === array.length - i - 2 ? 'styleGreenBg' : 'styleOrangeBg'
-
+                            newBgColors[j] = i === n - 2 ? 'styleGreenBg' : 'styleOrangeBg'
+                            newBgColors[j + 1] = j === n - i - 2 ? 'styleGreenBg' : 'styleOrangeBg'
                             return newBgColors
                         })
 
-                        setData(data => {
+                        setArrayData((arrayData) => {
                             // Copy the current array
-                            const newData = [...data]
+                            const newData = [...arrayData]
                             // Do the swap
-                            swap(newData, j, j + 1)
+                            if (newData[j] > newData[j + 1]) {
+                                let t = newData[j]
+                                newData[j] = newData[j + 1]
+                                newData[j + 1] = t
+                            }
                             // Set the state by returning the update
                             return newData
                         })
-                        // console.log('timer2: ', timer2)
-                    }, 1000 * (j))
-                }
 
-                console.log('timer1: ', timer1)
+
+                    }, 1000 * (j))
+
+                }
             }, oTimer * (i))
         }
-        setTimeout(() => {
-            setDisability(false)
-            resetPage()
-        }, endTimer)
 
-        // if(isTerminated.current) {
-        //     console.log('yes')
-        //     // clearTimeout(timer2)
-        //     // clearTimeout(timer1)
-        // }
+        setTimeout(() => { setDisability(false) }, endTimer)
     }
 
+    function selectionSortVisualizer() {
+        endTimer = 30000
 
-    function swap(newData, x, y) {
-        if (newData[x] > newData[y]) {
-            let t = newData[x]
-            newData[x] = newData[y]
-            newData[y] = t
+        for (let i = 0; i <= n - 2; i++) {
+            let minIdx
+
+            setTimeout(
+                () => {
+                    minIdx = i
+
+                    for (let j = i + 1; j <= n - 1; j++) {
+                        setTimeout(() => {
+                            setBgColors(bgColors => {
+                                const newBgColors = [...bgColors]
+                                for (let k = i + 1; k < n; k++)
+                                    newBgColors[k] = 'styleBlueBg'
+                                newBgColors[j] = 'styleOrangeBg'
+                                return newBgColors
+                            })
+
+                            if (array[j] < array[minIdx]) {
+                                minIdx = j
+                            }
+                        }, 1000 * j);
+                    }
+                }, 6000 * i);
+
+            setTimeout(
+                () => {
+                    setArrayData((arrayData) => {
+                        // Copy the current array
+                        const newData = [...arrayData]
+                        // Do the swap
+
+                        let t = newData[i]
+                        newData[i] = newData[minIdx]
+                        newData[minIdx] = t
+
+                        // Set the state by returning the update
+                        return newData
+                    })
+
+                    let t = array[i]
+                    array[i] = array[minIdx]
+                    array[minIdx] = t
+
+                    // change the color of starting block
+                    setBgColors(bgColors => {
+                        const newBgColors = [...bgColors]
+                        newBgColors[i] = 'styleGreenBg'
+                        newBgColors[n - 1] = 'styleBlueBg'
+                        return newBgColors
+                    })
+                }, 6000 * (i + 1));
         }
+
+        setTimeout(() => { setDisability(false) }, endTimer)
+    }
+
+    function insertionSortVisualizer() {
+        console.log('insertionSortVisualizer')
     }
 
     function reset() {
-        // // stop the function that is executing
-        // setTermination(true)
-        // isTerminated.current = true
         resetPage()
     }
 
@@ -93,16 +134,10 @@ function Visualizer({ array, sort }) {
             return newBgColors
         })
 
-        setData(data => {
+        setArrayData(arrayData => {
             return array
         })
-    }
 
-    function selectionSortVisualizer() {
-        console.log('selectionSortVisualizer')
-    }
-    function insertionSortVisualizer() {
-        console.log('insertionSortVisualizer')
     }
 
     return (
