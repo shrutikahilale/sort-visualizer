@@ -8,28 +8,34 @@ function HomePage() {
         {
             id: 1,
             title: 'BUBBLE SORT',
-            imgSrc: '../imgs/bubble-sort.png',
-            sort: 'bubbleSort'
+            sort: 'bubbleSort',
+            tc: 'O(n2)',
+            sc: 'O(1)'
         },
         {
             id: 2,
             title: 'SELECTION SORT',
-            imgSrc: '../imgs/bubble-sort.png',
-            sort: 'selectionSort'
+            sort: 'selectionSort',
+            tc: 'O(n2)',
+            sc: 'O(1)'
         },
         {
             id: 3,
             title: 'INSERTION SORT',
-            imgSrc: '../imgs/bubble-sort.png',
-            sort: 'insertionSort'
+            sort: 'insertionSort',
+            tc: 'O(n2)',
+            sc: 'O(1)'
         },
     ]
     const array = [9, 5, 1, 4, 3]
 
-    const cards = cardInfo.map((e, i) => <Card key={e.id} title={e.title} imgSrc={e.imgSrc} array={array} sort={e.sort} />)
+    const cards = cardInfo.map((e, i) => <Card key={e.id} title={e.title} array={array} sort={e.sort} tc={e.tc} sc={e.sc} />)
 
     return (
-        <div className='homepage'>{cards}</div>
+        <div>
+            <h1>Sort Visualizer</h1>
+            <div className='homepage'>{cards}</div>
+        </div>
     )
 }
 

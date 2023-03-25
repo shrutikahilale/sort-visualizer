@@ -15,7 +15,9 @@ function Card(props) {
     return (
         <div className='card' onClick={handleOnClick}>
             <h3>{props.title}</h3>
-            <img src={require('../imgs/bubble-sort.png')} alt="" />
+            <div>Worst case Time complexity: {props.tc}</div>
+            <div>Space complexity: {props.sc}</div>
+            <div id='algorithm'>Algorithm</div>
         </div>
     )
 }

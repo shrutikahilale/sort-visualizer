@@ -74,6 +74,8 @@ img {
     box-shadow: 3px 3px 10px #16181d;
     transition: all 0.25s ease-in-out;
     cursor: pointer;
+
+    padding: 1rem 2rem;
 }
 
 .card:hover {
@@ -140,4 +142,17 @@ header {
 
 .sort-name {
     margin-bottom: 3rem;
+}
+
+h1 {
+    padding: 3rem 0 4rem 0;
+    margin: 0;
+}
+
+#algorithm {
+    margin: 1rem 0;
+}
+
+#algorithm:hover {
+    text-decoration: underline #38E7FF;
 }
