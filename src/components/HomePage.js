@@ -24,7 +24,7 @@ function HomePage() {
             sort: 'insertionSort'
         },
     ]
-    const array = [23, 14, 45, 67, 28, 18]
+    const array = [9, 5, 1, 4, 3]
 
     const cards = cardInfo.map((e, i) => <Card key={e.id} title={e.title} imgSrc={e.imgSrc} array={array} sort={e.sort} />)
 
