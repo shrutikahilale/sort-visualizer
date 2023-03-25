@@ -98,7 +98,7 @@ function Visualizer({ array, sort }) {
 
                 setBgColors(bgColors => {
                     const newBgColors = [...bgColors]
-                    newBgColors[n-1] = 'styleBlueBg'
+                    newBgColors[n - 1] = 'styleBlueBg'
                     newBgColors[i] = 'styleGreenBg'
                     return newBgColors
                 })
@@ -194,11 +194,9 @@ function Visualizer({ array, sort }) {
 
     }
 
-    function reset() {
-        resetPage()
-    }
+    // Reset function
 
-    function resetPage() {
+    function reset() {
         setBgColors(bgColors => {
             const newBgColors = [...bgColors]
             for (let k = 0; k < newBgColors.length; k++) newBgColors[k] = 'styleBlueBg'
@@ -209,7 +207,6 @@ function Visualizer({ array, sort }) {
             array = [9, 5, 1, 4, 3]
             return array
         })
-
     }
 
     return (
@@ -228,7 +225,6 @@ function Visualizer({ array, sort }) {
                                     break;
                                 case 'selectionSort':
                                     selectionSort()
-                                    // selectionSortVisualizer()
                                     break;
                                 case 'insertionSort':
                                     insertionSort()
