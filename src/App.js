@@ -3,6 +3,7 @@ import HomePage from './components/HomePage';
 import SortPage from './components/SortPage';
 
 import { Route, Routes } from 'react-router-dom'
+import Algorithm from './components/Algorithm';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/SortPage' element={<SortPage />} />
+        <Route path='/Algorithm' element={<Algorithm/>}></Route>
       </Routes>
     </div>
   );

@@ -12,12 +12,23 @@ function Card(props) {
         }
     })
 
+    const navigateToAlgorithm = () => navigate('Algorithm', {
+        state: {
+            algorithm: props.algorithm,
+            imgSrc: props.imgSrc,
+            tc: props.tc,
+            sc: props.sc
+        }
+    })
+
     return (
-        <div className='card' onClick={handleOnClick}>
-            <h3>{props.title}</h3>
-            <div>Worst case Time complexity: {props.tc}</div>
-            <div>Space complexity: {props.sc}</div>
-            <div id='algorithm'>Algorithm</div>
+        <div className='card'>
+            <div onClick={handleOnClick}>
+                <h3>{props.title}</h3>
+                <div>Worst case Time complexity: {props.tc}</div>
+                <div>Space complexity: {props.sc}</div>
+            </div>
+            <div id='algorithm' onClick={navigateToAlgorithm}>Algorithm</div>
         </div>
     )
 }

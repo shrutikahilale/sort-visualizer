@@ -25,7 +25,9 @@ function SortPage() {
 
         <div className='d-f f-c g-2 j-c sort-page-section'>
             <p onClick={redirectBack} className='backBtn'> ⬅️ Back to Home</p>
+
             <header className='sort-name'>{location.state.title}</header>
+
             <div>
                 <div>size = {size}</div>
                 <div>array = &#123;{arr}&#125;</div>
