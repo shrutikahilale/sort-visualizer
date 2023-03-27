@@ -17,7 +17,7 @@ function Card(props) {
             algorithm: props.algorithm,
             imgSrc: props.imgSrc,
             tc: props.tc,
-            sc: props.sc
+            sc: props.sc,
         }
     })
 
