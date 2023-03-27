@@ -156,3 +156,27 @@ h1 {
 #algorithm:hover {
     text-decoration: underline #38E7FF;
 }
+
+/* algorithm page */
+.algo {
+    display: flex;
+    padding: 4.3rem 2rem 1rem 2rem;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    gap: 5rem;
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    font-family: 'Roboto Mono', Courier, monospace;
+}
+
+.algo section {
+    background-color: #111215df;
+    padding: 1rem 2rem 2rem 2rem;
+    text-align: left;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
