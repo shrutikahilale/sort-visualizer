@@ -26,10 +26,10 @@ function Algorithm() {
                         }
                     </section>
                     <section>
-                        Time Complexity: {location.state.tc}
+                        Worst Case Time Complexity: {location.state.tc}
                     </section>
                     <section>
-                        Space Complexity: {location.state.sc}
+                        Worst Case Space Complexity: {location.state.sc}
                     </section>
                 </section>
 
@@ -37,7 +37,6 @@ function Algorithm() {
                     <h2>Example</h2>
                     <img src={location.state.imgSrc} />
                 </section>
-
             </div>
         </div>
     )
