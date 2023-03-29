@@ -30,7 +30,7 @@ function HomePage() {
             tc: 'O(n2)',
             sc: 'O(1)',
             imgSrc: process.env.PUBLIC_URL + "imgs/insertion-sort.png",
-            algorithm: '1. If it is the first element, it is already sorted. return 1; \n 2. Pick next element \n 3. Compare with all elements in the sorted sub-list \n 4. Shift all the elements in the sorted sub-list that is greater than the value to be sorted \n 5. Insert the value \n 6. Repeat until list is sorted',
+            algorithm: '1. If it is the first element, \n it is already sorted.\n return 1; \n 2. Pick next element \n 3. Compare with all elements in the sorted sub-list \n 4. Shift all the elements in the sorted sub-list that \n is greater than the value to be sorted \n 5. Insert the value \n 6. Repeat until list is sorted',
         },
     ]
     const array = [9, 5, 1, 4, 3]

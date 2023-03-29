@@ -175,7 +175,6 @@ h1 {
     background-color: #111215df;
     padding: 1rem 2rem 2rem 2rem;
     text-align: left;
-    height: max-content;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
