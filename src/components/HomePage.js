@@ -38,7 +38,7 @@ function HomePage() {
             sort: 'quickSort',
             tc: 'O(n2)',
             sc: 'O(1)',
-            imgSrc: process.env.PUBLIC_URL + "imgs/insertion-sort.png",
+            imgSrc: process.env.PUBLIC_URL + "imgs/quick-sort.png",
             algorithm: '1. If it is the first element, \n it is already sorted.\n return 1; \n 2. Pick next element \n 3. Compare with all elements in the sorted sub-list \n 4. Shift all the elements in the sorted sub-list that \n is greater than the value to be sorted \n 5. Insert the value \n 6. Repeat until list is sorted',
         },
         {
@@ -47,7 +47,7 @@ function HomePage() {
             sort: 'mergeSort',
             tc: 'O(nlogn)',
             sc: 'O(n)',
-            imgSrc: process.env.PUBLIC_URL + "imgs/insertion-sort.png",
+            imgSrc: process.env.PUBLIC_URL + "imgs/merge-sort.png",
             algorithm: '1. If it is the first element, \n it is already sorted.\n return 1; \n 2. Pick next element \n 3. Compare with all elements in the sorted sub-list \n 4. Shift all the elements in the sorted sub-list that \n is greater than the value to be sorted \n 5. Insert the value \n 6. Repeat until list is sorted',
         },
     ]
