@@ -1,3 +1,7 @@
+body::-webkit-scrollbar {
+    display: none;
+}
+
 .block {
     /* background-color: #38E7FF; */
     padding: 3%;
