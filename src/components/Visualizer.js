@@ -438,7 +438,7 @@ function Visualizer({ array, sort }) {
                         }
                     }
                     disabled={isDisabled}>Start Visualizing</button>
-                <button id='res' className='btn' onClick={reset}>Reset</button>
+                <button id='res' className='btn' onClick={reset} disabled={isDisabled}>Reset</button>
             </div>
         </div>
 
