@@ -15,6 +15,6 @@ Many researches have proved the hypothesis that visualizations enable the user t
  > 5. Quick Sort
 - Step-by-step algorithm with example
 
-#### You can visit the website here: https://p_c7593d.livecycle.dev/
+#### You can visit the website here: https://shrutikahilale.github.io/sort-visualizer/
 
 ___Note: The images used in the entire project are created my me, using Figma tool.___
