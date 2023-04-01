@@ -18,49 +18,48 @@ function Visualizer({ array, sort }) {
         return (<ArrayBlock element={e} key={i} classN={bgColors[i]} />)
     })
 
-    let endTimer
 
-    function bubbleSortVisualizer() {
-        let oTimer = 1000 * n
-        endTimer = 28000
+    // BUBBLE SORT
 
-        for (let i = 0; i < n - 1; i++) {
+    const bs_changeColorAndData = (i, j) => {
+        return new Promise(resolve => {
             setTimeout(() => {
-                for (let j = 0; j < n - i - 1; j++) {
-                    setTimeout(() => {
-                        setBgColors((bgColors) => {
-                            const newBgColors = [...bgColors]
-                            for (let k = 0; k < newBgColors.length - i; k++)
-                                newBgColors[k] = 'styleBlueBg'
-                            newBgColors[j] = i === n - 2 ? 'styleGreenBg' : 'styleOrangeBg'
-                            newBgColors[j + 1] = j === n - i - 2 ? 'styleGreenBg' : 'styleOrangeBg'
-                            return newBgColors
-                        })
+                setBgColors((bgColors) => {
+                    const newBgColors = [...bgColors]
+                    for (let k = 0; k < n - i; k++)
+                        newBgColors[k] = 'styleBlueBg'
+                    newBgColors[j] = i === n - 2 ? 'styleGreenBg' : 'styleOrangeBg'
+                    newBgColors[j + 1] = j === n - i - 2 ? 'styleGreenBg' : 'styleOrangeBg'
+                    return newBgColors
+                })
 
-                        setArrayData((arrayData) => {
-                            // Copy the current array
-                            const newData = [...arrayData]
-                            // Do the swap
-                            if (newData[j] > newData[j + 1]) {
-                                let t = newData[j]
-                                newData[j] = newData[j + 1]
-                                newData[j + 1] = t
-                            }
-                            // Set the state by returning the update
-                            return newData
-                        })
+                setArrayData((arrayData) => {
+                    // Copy the current array
+                    const newData = [...arrayData]
+                    // Do the swap
+                    if (newData[j] > newData[j + 1]) {
+                        let t = newData[j]
+                        newData[j] = newData[j + 1]
+                        newData[j + 1] = t
+                    }
+                    // Set the state by returning the update
+                    return newData
+                })
 
-
-                    }, 1000 * (j))
-
-                }
-            }, oTimer * (i))
-        }
-
-        setTimeout(() => { setDisability(false) }, endTimer)
+                resolve(i, j)
+            }, 1000);
+        })
     }
 
-    // Selection sort functions
+    const bubbleSortVisualizer = async () => {
+        for (let i = 0; i < n - 1; i++) {
+            for (let j = 0; j < n - i - 1; j++) {
+                await bs_changeColorAndData(i, j)
+            }
+        }
+    }
+
+    // SELECTION SORT
 
     const ss_changeColor = (j, i) => {
         return new Promise(resolve => {
@@ -86,16 +85,6 @@ function Visualizer({ array, sort }) {
                 array[idx] = array[i]
                 array[i] = temp
 
-                // ** By uncommenting the below lines, it will re-swap the numbers 
-                // ** Thus no change will be seen
-                // setArrayData(arrayData => {
-                //     const newData = [...arrayData]
-                //     let temp = newData[idx]
-                //     newData[idx] = newData[i]
-                //     newData[i] = temp
-                //     return newData
-                // })
-
                 setBgColors(bgColors => {
                     const newBgColors = [...bgColors]
                     newBgColors[n - 1] = 'styleBlueBg'
@@ -115,18 +104,16 @@ function Visualizer({ array, sort }) {
             for (let j = i + 1; j < n; j++) {
                 // keep track of smallest element's index
                 if (array[j] < array[idx]) idx = j
-
                 // change color 
                 await ss_changeColor(j, i)
             }
 
             // change data
             await ss_changeDataAndColor(idx, i)
-            // console.log(i, '', idx, array)
         }
     }
 
-    // Insertion Sort functions
+    // INSERTION SORT
 
     const is_checkAndSwap = (j) => {
         return new Promise(resolve => {
@@ -192,7 +179,7 @@ function Visualizer({ array, sort }) {
 
     }
 
-    // quick sort
+    // QUICK SORT
 
     const qs_changeColor = (pidx) => {
         return new Promise(resolve => {
@@ -289,7 +276,8 @@ function Visualizer({ array, sort }) {
         }
     }
 
-    // merge sort
+    // MERGE SORT
+
     const colors = ['styleIndigoBg', 'styleOrangeBg', 'stylePurpleBg', 'styleRedBg', 'styleYellowBg', 'stylePinkBg']
 
     const ms_changeBgColor = (c_idx, st, end) => {
@@ -412,29 +400,30 @@ function Visualizer({ array, sort }) {
             <div className='operating-section'>
                 <button id='vis' className='btn'
                     onClick={
-                        () => {
+                        async () => {
                             setDisability(true)
                             switch (sort) {
                                 case 'bubbleSort':
-                                    bubbleSortVisualizer()
+                                    await bubbleSortVisualizer()
                                     break
                                 case 'selectionSort':
-                                    selectionSort()
+                                    await selectionSort()
                                     break
                                 case 'insertionSort':
-                                    insertionSort()
+                                    await insertionSort()
                                     break
                                 case 'quickSort':
                                     setQSState(true)
-                                    quickSort(0, n - 1)
+                                    await quickSort(0, n - 1)
                                     break
                                 case 'mergeSort':
-                                    merge(0, n - 1)
+                                    await merge(0, n - 1)
                                     break
                                 default:
                                     console.log('err')
                                     break
                             }
+                            setDisability(false)
                         }
                     }
                     disabled={isDisabled}>Start Visualizing</button>
