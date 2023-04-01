@@ -92,8 +92,8 @@ img {
 }
 
 .card {
-    background-color: #16181d;
-    box-shadow: 3px 3px 10px #16181d;
+    background-color: #001c5c;
+    box-shadow: 10px 10px 10px #000718;
     transition: all 0.25s ease-in-out;
     cursor: pointer;
 
