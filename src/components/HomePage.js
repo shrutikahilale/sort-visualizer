@@ -11,7 +11,7 @@ function HomePage() {
             sort: 'bubbleSort',
             tc: 'O(n2)',
             sc: 'O(1)',
-            imgSrc: process.env.PUBLIC_URL + "imgs/bubble-sort.png",
+            imgSrc: '/sort-visualizer/imgs/bubble-sort.png',
             algorithm: 'Initialize i=0, j=i \n 1. Iterate till j<(size-1): \n  1.1 If arr[j]>arr[j+1] then swap [j] and arr[j+1] \n 1.2 j++ \n 2. i++ \n 3. Go to step 1 until i<size-1',
         },
         {
@@ -20,7 +20,7 @@ function HomePage() {
             sort: 'selectionSort',
             tc: 'O(n2)',
             sc: 'O(1)',
-            imgSrc: process.env.PUBLIC_URL + "imgs/selection-sort.png",
+            imgSrc: "/sort-visualizer/imgs/selection-sort.png",
             algorithm: '1. Set MIN to location 0 \n 2. Search the minimum element in the list \n 3. Swap with value at location MIN \n 4. Increment MIN to point to next element \n 5. Repeat until list is sorted',
         },
         {
@@ -29,7 +29,7 @@ function HomePage() {
             sort: 'insertionSort',
             tc: 'O(n2)',
             sc: 'O(1)',
-            imgSrc: process.env.PUBLIC_URL + "imgs/insertion-sort.png",
+            imgSrc: "/sort-visualizer/imgs/insertion-sort.png",
             algorithm: '1. If it is the first element, \n it is already sorted.\n return 1; \n 2. Pick next element \n 3. Compare with all elements in the sorted sub-list \n 4. Shift all the elements in the sorted sub-list that \n is greater than the value to be sorted \n 5. Insert the value \n 6. Repeat until list is sorted',
         },
         {
@@ -38,7 +38,7 @@ function HomePage() {
             sort: 'quickSort',
             tc: 'O(n2)',
             sc: 'O(1)',
-            imgSrc: process.env.PUBLIC_URL + "imgs/quick-sort.png",
+            imgSrc: "/sort-visualizer/imgs/quick-sort.png",
             algorithm: 'DIVIDE AND CONQUER STRATEGY\n\n QuickSort Function (A[], low, high) \n\nif(low < high)\n1. Calculate pivotIdx = Partition Function (A[], low, high) \n2. Call QuickSort Function (A[], low, pivotIdx - 1) and QuickSort Function (A[], pivotIdx + 1, high) \n\n\n Partition Function (A[], low, high) \n1. Initialize i = low - 1 and pivot = A[high]\n2. Iterate from j = low to high - 1: \n2.1 if (A[j] < pivot) then i++ and swap(A[j] , A[i]) repeat \n3. i++ and swap(A[i], A[high])\n 4. return i',
         },
         {
