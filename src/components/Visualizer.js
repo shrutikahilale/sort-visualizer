@@ -185,18 +185,108 @@ function Visualizer({ array, sort }) {
 
             while (j >= 0 && key < array[j]) {
                 await is_checkAndSwap(j)
-                // console.log(j, array)
                 j--
             }
-
             await is_changeDataAndColor(j, i, key)
         }
 
     }
 
     // quick sort
-    const quickSort = () => {
-        console.log('quickSort')
+
+    const qs_changeColor = (pidx) => {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                setBgColors(bgColors => {
+                    const newBgColors = [...bgColors]
+                    newBgColors[pidx] = 'styleRedBg'
+                    return newBgColors
+                })
+                resolve(pidx)
+            }, 2000);
+        })
+    }
+
+    const qs_swap = async (j, low, high) => {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                setBgColors(bgColors => {
+                    const newBgColors = [...bgColors]
+                    for (let k = low; k < high; k++) newBgColors[k] = 'styleBlueBg'
+                    newBgColors[j] = 'styleYellowBg'
+                    return newBgColors
+                })
+                resolve(j)
+            }, 2000);
+        })
+    }
+    const qs_swapAndChangeColor = async (i, j, low, high) => {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                setBgColors(bgColors => {
+                    const newBgColors = [...bgColors]
+                    for (let k = low; k < high; k++) newBgColors[k] = 'styleBlueBg'
+                    newBgColors[j] = 'stylePurpleBg'
+                    newBgColors[i] = 'stylePurpleBg'
+                    return newBgColors
+                })
+                resolve(i, j)
+            }, 2000);
+        })
+    }
+    const qs_resetColors = (low, high, i) => {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                setBgColors(bgColors => {
+                    const newBgColors = [...bgColors]
+                    for (let k = low; k <= high; k++) newBgColors[k] = 'styleBlueBg'
+                    newBgColors[i] = 'styleGreenBg'
+                    return newBgColors
+                })
+                resolve(i)
+            }, 2000);
+        })
+    }
+
+    const [[qs_startIdx, qs_endIdx, qs_pivot], setQSIdx] = useState([0, 0, 0])
+
+    const partition = async (low, high) => {
+        let pivot = array[high]
+        setQSIdx([low, high, pivot])
+
+        await qs_changeColor(high)
+
+        let i = low - 1
+        for (let j = low; j < high; j++) {
+            await qs_swap(j, low, high)
+
+            if (array[j] < pivot) {
+                i++;
+                await qs_swapAndChangeColor(i, j, low, high)
+                let t = array[j]
+                array[j] = array[i]
+                array[i] = t
+            }
+        }
+
+        i++;
+        await qs_swapAndChangeColor(i, high, low, high)
+        let t = array[i]
+        array[i] = array[high]
+        array[high] = t
+
+        await qs_resetColors(low, high, i)
+
+        return i
+    }
+    const [qs_invoked, setQSState] = useState(false)
+
+    const quickSort = async (low, high) => {
+        if (low <= high) {
+            let pIdx = await partition(low, high)
+            await quickSort(low, pIdx - 1)
+            await quickSort(pIdx + 1, high)
+        }
     }
 
     // merge sort
@@ -236,12 +326,12 @@ function Visualizer({ array, sort }) {
         }
     }
 
-    const [[startIdx, endIdx], setIdx] = useState([0, 0])
+    const [[ms_startIdx, ms_endIdx], setMSIdx] = useState([0, 0])
 
     const ms_sort = async (st, end) => {
         return new Promise(resolve => {
             setTimeout(() => {
-                setIdx([st, end])
+                setMSIdx([st, end])
 
                 setArrayData(arrayData => {
                     const newData = [...arrayData]
@@ -278,17 +368,17 @@ function Visualizer({ array, sort }) {
 
     const merge = async (st, end) => {
         await mergeSort(st, end);
-
         // create and display element for st and end index of merge sort while actually sorting 
         setMSState(true)
-
         await conquer(st, end);
     }
 
     // Reset function
     function reset() {
         setMSState(false)
-        setIdx([0, 0])
+        setQSState(false)
+        setMSIdx([0, 0])
+        setQSIdx([0, 0, 0])
 
         setDisability(false)
 
@@ -306,10 +396,15 @@ function Visualizer({ array, sort }) {
 
     return (
         <div>
-            {/* st and end index to be displayed while sorting for merge */}
+            {/* st and end index to be displayed while sorting for merge sort*/}
             {
-                ms_invoked && <div><div>Start idx : {startIdx} </div>
-                    <div>End idx : {endIdx}</div></div>
+                ms_invoked && <div><div>Start idx : {ms_startIdx} </div>
+                    <div>End idx : {ms_endIdx}</div></div>
+            }
+            {/* st, end index and pivot to be displayed while sorting for quick sort*/}
+            {
+                qs_invoked && <div><div>Start idx : {qs_startIdx} </div>
+                    <div>End idx : {qs_endIdx}</div><div>Pivot : {qs_pivot}</div></div>
             }
             <div className='d-f j-c arrayBlocks-section font-roboto-mono' >
                 {arrayBlocks}
@@ -330,7 +425,8 @@ function Visualizer({ array, sort }) {
                                     insertionSort()
                                     break
                                 case 'quickSort':
-                                    quickSort()
+                                    setQSState(true)
+                                    quickSort(0, n - 1)
                                     break
                                 case 'mergeSort':
                                     merge(0, n - 1)
